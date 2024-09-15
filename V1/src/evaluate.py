@@ -1,6 +1,5 @@
 from src import utils
 from PIL import Image
-import cv2
 
 def evaluate_model(model, val_loader, cfg, device):
     logger = utils.setup_logger(__name__)
@@ -28,7 +27,5 @@ def run_inference(model, image_path, cfg, device):
     
     # Run inference
     results = model(image, conf=cfg['conf_thres'], iou=cfg['iou_thres'])
-
-    cv2.imwrite(f'{cfg['predict']}/predict.jpg', results)
 
     return results  # Return the first (and only) result

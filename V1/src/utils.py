@@ -4,6 +4,7 @@ from torchvision.ops import box_iou
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import cv2
+import os
 import numpy as np 
 def setup_logger(name):
     logger = logging.getLogger(name)
@@ -73,11 +74,15 @@ def visualize_results(image_path, prediction, class_names):
 
         # Add the label text
         cv2.putText(image, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2, cv2.LINE_AA)
-
-    # Show the final image
+    
+    # Save the output image
+    if not os.path.exists('detect'):
+        os.mkdir('detect')
+    cv2.imwrite('detect/detection.jpg', image)
+    
+    # Show the final image    
     cv2.imshow("YOLOv8 Aesthetic Bounding Boxes", image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-    # Save the output image
-    cv2.imwrite('predictions/', image)
+    
